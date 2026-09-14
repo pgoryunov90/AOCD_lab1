@@ -5,30 +5,203 @@
 #define MAIN_PATH "img/main_sh.png"
 #define FOREIGN_PATH "img/foreign_7_sh.png"
 #define OWN_PATH "img/own_7_sh.png"
+#define OWN_P2_PATH "img/own_7_sh_p2.png"
+#define OWN_P4_PATH "img/own_7_sh_p4.png"
+#define OWN_P6_PATH "img/own_7_sh_p6.png"
+#define OWN_P8_PATH "img/own_7_sh_p8.png"
+#define OWN_P10_PATH "img/own_7_sh_p10.png"
+#define OWN_M2_PATH "img/own_7_sh_m2.png"
+#define OWN_M4_PATH "img/own_7_sh_m4.png"
+#define OWN_M6_PATH "img/own_7_sh_m6.png"
+#define OWN_M8_PATH "img/own_7_sh_m8.png"
+#define OWN_M10_PATH "img/own_7_sh_m10.png"
+#define OWN_B025_PATH "img/own_7_sh_b025.png"
+#define OWN_B050_PATH "img/own_7_sh_b050.png"
+#define OWN_B075_PATH "img/own_7_sh_b075.png"
+#define OWN_B100_PATH "img/own_7_sh_b100.png"
+#define OWN_S025_PATH "img/own_7_sh_s025.png"
+#define OWN_S050_PATH "img/own_7_sh_s050.png"
+#define OWN_S075_PATH "img/own_7_sh_s075.png"
+#define OWN_S100_PATH "img/own_7_sh_s100.png"
 
 using namespace std;
 
-void printProgressBar(int current, int total, const string& prefix = "", int barWidth = 50);
 void saveImage(const cv::Mat& image, const string& name, const string& suffix = "");
 int find_correlation(string main_name, string quest_name, string result_name);
+
+// Функция центрирования яркости (из второго файла)
+void bright(cv::Mat& img)
+{
+    if (img.channels() != 1) 
+        cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
+    img.convertTo(img, CV_32F);
+    img -= cv::mean(img)[0];
+}
 
 int main()
 {
     int e;
-    e = find_correlation(MAIN_PATH, FOREIGN_PATH, "result_foreign");
+    
+   /* cout << "Нахождение корреляции с foreign" << endl;
+    e = find_correlation(MAIN_PATH, FOREIGN_PATH, "2_result_foreign");
     if(e != 0)
     {
         cout << "Ошибка нахождения корреляции с foreign: " <<  e << endl;
         return -1;
     }
 
-    e = find_correlation(MAIN_PATH, OWN_PATH, "result_own");
+    cout << "Нахождение корреляции с own" << endl;
+    e = find_correlation(MAIN_PATH, OWN_PATH, "2_result_own");
     if(e != 0)
     {
         cout << "Ошибка нахождения корреляции с own: " <<  e << endl;
         return -1;
     }
+    
+    cout << "Нахождение корреляции с own (поворот -2)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_M2_PATH, "2_result_own_rot_m2");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
 
+    cout << "Нахождение корреляции с own (поворот -4)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_M4_PATH, "2_result_own_rot_m4");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот -6)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_M6_PATH, "2_result_own_rot_m6");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот -8)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_M8_PATH, "2_result_own_rot_m8");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот -10)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_M10_PATH, "2_result_own_rot_m10");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот 2)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_P2_PATH, "2_result_own_rot_p2");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот 4)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_P4_PATH, "2_result_own_rot_p4");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот 6)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_P6_PATH, "2_result_own_rot_p6");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот 8)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_P8_PATH, "2_result_own_rot_p8");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (поворот 10)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_P10_PATH, "2_result_own_rot_p10");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (увеличение в 1,025 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_B025_PATH, "2_result_own_size_p025");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+*/
+    cout << "Нахождение корреляции с own (увеличение в 1,050 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_B050_PATH, "2_result_own_size_p050");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (увеличение в 1,075 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_B075_PATH, "2_result_own_size_p075");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (увеличение в 1,1 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_B100_PATH, "2_result_own_size_p100");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (уменьшение в 1,025 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_S025_PATH, "2_result_own_size_m025");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (уменьшение в 1,050 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_S050_PATH, "2_result_own_size_m050");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (уменьшение в 1,075 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_S075_PATH, "2_result_own_size_m075");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+
+    cout << "Нахождение корреляции с own (уменьшение в 1,1 раза)" << endl;
+    e = find_correlation(MAIN_PATH, OWN_S100_PATH, "2_result_own_size_m100");
+    if(e != 0)
+    {
+        cout << "Ошибка нахождения корреляции: " <<  e << endl;
+        return -1;
+    }
+    
     return 0;
 }
 
@@ -45,118 +218,66 @@ void saveImage(const cv::Mat& image, const string& name, const string& suffix) {
 
 int find_correlation(string main_name, string quest_name, string result_name)
 {
-    // Подготовка
-
-    cv::Mat image_main, image_quest, image_out;
-    int main_width, main_height, quest_width, quest_height;
-    double main_avg_brigh = 0;
-    double sum_brigh = 0;
-
-    image_main = cv::imread(main_name, cv::IMREAD_UNCHANGED);
-    main_width = image_main.cols;
-    main_height = image_main.rows;
-    image_out = image_main.clone(); 
-
-    image_quest = cv::imread(quest_name, cv::IMREAD_UNCHANGED);
-    quest_width = image_quest.cols;
-    quest_height = image_quest.rows;
-
-
+    // Загрузка изображений
+    cv::Mat image_main = cv::imread(main_name, cv::IMREAD_UNCHANGED);
+    cv::Mat image_quest = cv::imread(quest_name, cv::IMREAD_UNCHANGED);
+    
     if (image_main.empty())
-    {
         return -1;
-    }
-
     if (image_quest.empty())
-    {
         return -2;
-    }
 
-    if (image_out.empty())
-    {
-        return -3;
-    }
+    // Центрирование яркости (алгоритм из второго файла)
+    bright(image_main);
+    bright(image_quest);
 
-    // Нахождение средней яркости 
+    int main_h = image_main.rows;
+    int main_w = image_main.cols;
+    int quest_h = image_quest.rows;
+    int quest_w = image_quest.cols;
 
-    for (int i = 0; i < main_width; i++)
-    {
-        for (int j = 0; j < main_height; j++)
-        {
-            sum_brigh += image_main.at<uchar>(i, j);
-        }
-    }
+    cout << "Размер основного изображения: " << main_w << " x " << main_h << endl;
+    cout << "Размер искомого изображения: " << quest_w << " x " << quest_h << endl;
 
-    main_avg_brigh = sum_brigh / (main_width*main_height);
-    cout << main_avg_brigh << endl;
-
-    // Центрирование по яркости
-
-    for (int y = 0; y < main_height; y++)
-    {
-        for (int x = 0; x < main_width; x++)
-        {
-            uchar& pixel = image_main.at<uchar>(y, x);
-            pixel = cv::saturate_cast<uchar>(pixel - main_avg_brigh);
-        }
-    }
-
-    for (int y = 0; y < quest_height; y++)
-    {
-        for (int x = 0; x < quest_width; x++)
-        {
-            uchar& pixel = image_quest.at<uchar>(y, x);
-            pixel = cv::saturate_cast<uchar>(pixel - main_avg_brigh);
-        }
-    }
-
-   // Поиск корреляции
-
-    image_out = cv::Mat::zeros(main_height, main_width, CV_8UC1);
-
-    double max_C= -1;
-    int max_C_x = 0, max_C_y = 0;
-
+    // Матрица корреляции (результат)
+    cv::Mat cor(main_h - quest_h + 1, main_w - quest_w + 1, CV_64F, cv::Scalar(0));
+    
     cout << "Вычисление корреляции..." << endl;
-
     auto start = std::chrono::high_resolution_clock::now();
 
-    for (int y = 0; y < main_height- quest_height; y++)
+    // Вычисление корреляции (алгоритм из второго файла)
+    for (int y = 0; y <= main_h - quest_h; y++)
     {
-        for (int x = 0; x < main_width - quest_width; x++)
+        for (int x = 0; x <= main_w - quest_w; x++)
         {
-            double C = 0;
-            for (int k = 0; k < quest_height; k++)
+            double c = 0;
+            for (int l = 0; l < quest_h; l++)
             {
-                 for (int l = 0; l < quest_width; l++)
-                 {
-                    uchar pixel_main = image_main.at<uchar>(y + k, x + l);
-                    uchar pixel_quest = image_quest.at<uchar>(k, l);
-                    C += pixel_main * pixel_quest;
+                for (int k = 0; k < quest_w; k++)
+                {
+                    c += image_main.at<float>(y + l, x + k) * image_quest.at<float>(l, k);
                 }
             }
-            image_out.at<uchar>(y, x) = cv::saturate_cast<uchar>(C/ (quest_width * quest_height));
-            if (C > max_C)
-            {
-                max_C = C;
-                max_C_x = x;
-                max_C_y = y;
-            }
+            cor.at<double>(y, x) = c;
         }
     }
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-    cout << "Максимальная корреляция найдена в позиции: (" << max_C_x << ";" << max_C_y << ")" << endl;
-    cout << "Значение корреляции: " << max_C << endl;
+    // Поиск максимума
+    double maxVal;
+    cv::Point maxLoc;
+    cv::minMaxLoc(cor, nullptr, &maxVal, nullptr, &maxLoc);
 
-    std::cout << "Время нахождения корреляции: " << duration.count() / 1000.0 << " мс" << std::endl;
-    std::cout << "Размер основного изображения: " << main_width << " x " << main_height << std::endl;
-    std::cout << "Размер искомого изображения: " << quest_width << " x " << quest_height << std::endl;
+    cout << "Максимальная корреляция найдена в позиции: (" << maxLoc.x << ";" << maxLoc.y << ")" << endl;
+    cout << "Значение корреляции: " << maxVal << endl;
+    cout << "Время нахождения корреляции: " << duration.count() / 1000.0 << " мс" << endl;
 
-    saveImage(image_out, result_name);
+    // Нормализация и сохранение результата
+    cv::Mat cor_normalized;
+    cv::normalize(cor, cor_normalized, 0, 255, cv::NORM_MINMAX, CV_8U);
+    saveImage(cor_normalized, result_name);
+    
     return 0;
-    //cv::imshow("Test OpenCV1", image_main);
-    // cv::waitKey(0);
 }
